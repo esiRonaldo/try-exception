@@ -1,0 +1,14 @@
+import psutil
+
+try:
+    hdd = psutil.disk_usage('/')
+    print("Total: %d GiB" % int(hdd.total / (2 ** 30)))
+    print("Free: %d GiB" % int(hdd.free / (2 ** 30)))
+    print("Free space percentage: {}%".format(100* (hdd.total-hdd.used)/(hdd.total)))
+    print("Used: %d GiB" % int(hdd.used / (2 ** 30)))
+except OSError as e:
+    if e.errno == errno.ENOSPC:
+        print("Not Enough Space")
+finally:
+    print("Current Free space: {} GB".format(hdd.free / (2 ** 30)))
+
